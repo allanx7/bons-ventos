@@ -1,5 +1,5 @@
 const CONTACTS = {
-  whatsapp: "5511999999999",
+  whatsapp: "5512997018997",
   email: "bonsventosassistencia@gmail.com"
 };
 
