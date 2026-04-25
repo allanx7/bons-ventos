@@ -64,7 +64,7 @@ clearForm.addEventListener("click", () => {
   preview.textContent = "Preencha o formulario para gerar sua mensagem.";
   sendWhatsapp.classList.add("is-disabled");
   sendEmail.classList.add("is-disabled");
-  sendWhatsapp.href = "#";
+  sendWhatsapp.href = "5512997018997";
   sendEmail.href = "#";
 });
 
