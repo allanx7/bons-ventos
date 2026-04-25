@@ -9,6 +9,32 @@ const sendWhatsapp = document.querySelector("#sendWhatsapp");
 const sendEmail = document.querySelector("#sendEmail");
 const clearForm = document.querySelector("#clearForm");
 const year = document.querySelector("#currentYear");
+const whatsappLinks = Array.from(document.querySelectorAll("[data-whatsapp-link]"));
+
+const sanitizePhone = (value) => {
+  return String(value || "").replace(/\D/g, "");
+};
+
+const buildWhatsappLink = (message = "") => {
+  const phone = sanitizePhone(CONTACTS.whatsapp);
+  if (!phone) {
+    return "#";
+  }
+
+  const normalizedMessage = String(message || "").trim();
+  if (normalizedMessage.length === 0) {
+    return `https://wa.me/${phone}`;
+  }
+
+  return `https://wa.me/${phone}?text=${encodeURIComponent(normalizedMessage)}`;
+};
+
+const syncStaticWhatsappLinks = () => {
+  whatsappLinks.forEach((link) => {
+    const customMessage = String(link.dataset.whatsappText || "").trim();
+    link.href = buildWhatsappLink(customMessage);
+  });
+};
 
 const buildMessage = (fields) => {
   return [
@@ -27,7 +53,7 @@ const setChannels = (message) => {
   const encoded = encodeURIComponent(message);
   const subject = encodeURIComponent("Pedido de Conserto - Bons Ventos");
   const to = encodeURIComponent(CONTACTS.email);
-  sendWhatsapp.href = `https://wa.me/${CONTACTS.whatsapp}?text=${encoded}`;
+  sendWhatsapp.href = buildWhatsappLink(message);
   sendEmail.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${encoded}`;
   sendWhatsapp.classList.remove("is-disabled");
   sendEmail.classList.remove("is-disabled");
@@ -64,8 +90,10 @@ clearForm.addEventListener("click", () => {
   preview.textContent = "Preencha o formulario para gerar sua mensagem.";
   sendWhatsapp.classList.add("is-disabled");
   sendEmail.classList.add("is-disabled");
-  sendWhatsapp.href = "5512997018997";
+  sendWhatsapp.href = "#";
   sendEmail.href = "#";
 });
 
+syncStaticWhatsappLinks();
+sendWhatsapp.href = "#";
 year.textContent = String(new Date().getFullYear());
