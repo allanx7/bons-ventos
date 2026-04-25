@@ -38,14 +38,14 @@ const syncStaticWhatsappLinks = () => {
 
 const buildMessage = (fields) => {
   return [
-    "Ola, Bons Ventos. Quero solicitar um conserto:",
+    "Olá, Bons Ventos. Quero solicitar um conserto:",
     "",
     `Nome: ${fields.nome}`,
     `WhatsApp: ${fields.telefone}`,
     `Tipo de aparelho: ${fields.aparelho}`,
     `Marca e modelo: ${fields.modelo}`,
     `Problema: ${fields.problema}`,
-    `Periodo para retorno: ${fields.periodo}`
+    `Período para retorno: ${fields.periodo}`
   ].join("\n");
 };
 
@@ -74,7 +74,7 @@ form.addEventListener("submit", (event) => {
 
   const missing = Object.values(fields).some((value) => value.length === 0);
   if (missing) {
-    preview.textContent = "Preencha todos os campos obrigatorios para gerar o pedido.";
+    preview.textContent = "Preencha todos os campos obrigatórios para gerar o pedido.";
     sendWhatsapp.classList.add("is-disabled");
     sendEmail.classList.add("is-disabled");
     return;
@@ -87,7 +87,7 @@ form.addEventListener("submit", (event) => {
 
 clearForm.addEventListener("click", () => {
   form.reset();
-  preview.textContent = "Preencha o formulario para gerar sua mensagem.";
+  preview.textContent = "Preencha o formulário para gerar sua mensagem.";
   sendWhatsapp.classList.add("is-disabled");
   sendEmail.classList.add("is-disabled");
   sendWhatsapp.href = "#";
